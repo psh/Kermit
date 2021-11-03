@@ -22,6 +22,7 @@ jobs:
     steps:
       - run: |
           pwd
+          ls
           cd ./samples/${{matrix.dir}}
           pwd
         
