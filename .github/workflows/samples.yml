@@ -10,7 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: set-dirs # Give it an id to handle to get step outputs in the outputs key above
-        run: echo "::set-output name=dir::$(ls -d samples/* | jq -R -s -c 'split("\n")[:-1]')"
+        working-directory: ./samples
+        run: echo "::set-output name=dir::$(ls -d * | jq -R -s -c 'split("\n")[:-1]')"
         # Define step output named dir base on ls command transformed to JSON thanks to jq
   loop:
     runs-on: ubuntu-latest
@@ -19,7 +20,7 @@ jobs:
       matrix:
         dir: ${{fromJson(needs.directories.outputs.dir)}} # List matrix strategy from directories dynamically
     steps:
-      - run: echo ${{matrix.dir}}
-        working-directory: ./${{matrix.dir}}
+      - run: echo -- ${{matrix.dir}} --
+        working-directory: ./samples/${{matrix.dir}}
         
       
