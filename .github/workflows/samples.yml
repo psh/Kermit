@@ -20,7 +20,8 @@ jobs:
       matrix:
         dir: ${{fromJson(needs.directories.outputs.dir)}} # List matrix strategy from directories dynamically
     steps:
-      - run: echo -- ${{matrix.dir}} --
-        working-directory: ./samples/${{matrix.dir}}
+      - run: |
+          cd ./samples/${{matrix.dir}}
+          pwd
         
       
