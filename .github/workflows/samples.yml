@@ -24,6 +24,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Run the check
         working-directory: ./samples/${{ matrix.dir }}
-        run: pwd
+        run: |
+          pwd
+          ./gradlew --version
         
       
