@@ -20,7 +20,10 @@ jobs:
       matrix:
         dir: ${{fromJson(needs.directories.outputs.dir)}} # List matrix strategy from directories dynamically
     steps:
-      - run: |
-          ls
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Run the check
+        working-directory: ./samples/${{ matrix.dir }}
+        run: pwd
         
       
