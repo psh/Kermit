@@ -1,12 +1,12 @@
 name: build
-#on: workflow_dispatch
-on:
-  pull_request:
-    branches:
-      - "**"
-  push:
-    branches:
-      - "**"
+on: workflow_dispatch
+#on:
+#  pull_request:
+#    branches:
+#      - "**"
+#  push:
+#    branches:
+#      - "**"
 
 jobs:
   build:
@@ -46,6 +46,12 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Build
         run: ./gradlew build --no-daemon --stacktrace
+      - name: Inflate Google Services
+        shell: bash
+        env:
+          GOOGLE_SERVICES: ${{ secrets.SERVICES_SECRET }}
+        run: |
+          echo $GOOGLE_SERVICES | base64 --decode > samples/sample-crashlytics/app/google-services.json
       - name: script
         if: matrix.os == 'macOS-latest'
         run: ./ci-test-samples.sh
