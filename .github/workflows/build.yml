@@ -46,7 +46,7 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Build
         run: ./gradlew build --no-daemon --stacktrace
-      - name: Inflate Google Services
+      - name: Setup for samples testing
         shell: bash
         env:
           GOOGLE_SERVICES: ${{ secrets.SERVICES_SECRET }}
